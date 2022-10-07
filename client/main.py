@@ -14,30 +14,19 @@ def _asyncio():
             logging.warning("connection failed")
             return
         VC = cv2.VideoCapture(0)
-        VC.set(cv2.CAP_PROP_FRAME_WIDTH, 720)
-        VC.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
-        VC.set(cv2.CAP_PROP_FPS, 12)
         while True:
             ret, cap = VC.read()
             ret, jpgImg = cv2.imencode(".jpg", cap)
             jpgBin = pickle.dumps(jpgImg)
-            try:
-                writer.write(
-                    struct.pack("<L", len(jpgBin)) +
-                    jpgBin
-                )
-                await writer.drain()
-            except:
-                print('Server down! Wait until the server wake up')
-                break
-            #cv2.imshow("Client", cap)
-            #if cv2.waitKey(1) & 0xFF == ord('q'):
-            #    break
+            writer.write(
+                struct.pack("<L", len(jpgBin)) +
+                jpgBin
+            )
+            await writer.drain()
             
-        writer.close()
-        await writer.wait_closed()
-        VC.release()
-        #cv2.destroyAllWindows()
+        #writer.close()
+        #await writer.wait_closed()
+        #VC.release()
 
     asyncio.run(sending())
 
