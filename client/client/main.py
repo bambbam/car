@@ -6,10 +6,11 @@ import asyncio
 import pickle
 import struct
 
+
 def _asyncio():
     async def sending():
         try:
-            reader, writer = await asyncio.open_connection(host='127.0.0.1', port=9999)
+            reader, writer = await asyncio.open_connection(host="127.0.0.1", port=9999)
         except:
             logging.warning("connection failed")
             return
@@ -18,15 +19,12 @@ def _asyncio():
             ret, cap = VC.read()
             ret, jpgImg = cv2.imencode(".jpg", cap)
             jpgBin = pickle.dumps(jpgImg)
-            writer.write(
-                struct.pack("<L", len(jpgBin)) +
-                jpgBin
-            )
+            writer.write(struct.pack("<L", len(jpgBin)) + jpgBin)
             await writer.drain()
-            
-        #writer.close()
-        #await writer.wait_closed()
-        #VC.release()
+
+        # writer.close()
+        # await writer.wait_closed()
+        # VC.release()
 
     asyncio.run(sending())
 

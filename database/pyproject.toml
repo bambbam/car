@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "database"
+version = "0.1.0"
+description = ""
+authors = ["twinszs <dongwooo5271@naver.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+PyMySQL = "^1.0.2"
+SQLAlchemy = "^1.4.41"
+fastapi = "^0.85.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

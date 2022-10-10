@@ -4,10 +4,14 @@ version = "0.1.0"
 description = ""
 authors = ["JeonMinSu <minsu2530@u.sogang.ac.kr>"]
 
+[tool.poetry.scripts]
+server = "server.app:main"
+
 [tool.poetry.dependencies]
 python = "^3.9"
 fastapi = "^0.85.0"
 uvicorn = {extras = ["standard"], version = "^0.18.3"}
+opencv-python = "^4.6.0.66"
 
 [tool.poetry.dev-dependencies]
 

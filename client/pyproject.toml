@@ -4,6 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["JeonMinSu <minsu2530@u.sogang.ac.kr>"]
 
+[tool.poetry.scripts]
+client = "client.main:_asyncio"
+
 [tool.poetry.dependencies]
 python = "^3.9"
 opencv-python = "^4.6.0"

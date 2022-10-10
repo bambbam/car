@@ -1,5 +1,6 @@
 import socket
 
+
 class Socket:
     def __init__(self, host, port):
         self.host = host
@@ -10,7 +11,7 @@ class Socket:
     def send(self, data):
         self.socket.sendall(data)
 
-    def receive(self, length = 1024):
+    def receive(self, length=1024):
         return self.socket.recv(length)
 
     def close(self):

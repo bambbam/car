@@ -1,8 +1,9 @@
 ## socket server
 import socket
 
-from base.singleton import Singleton
+from cv2 import INTER_AREA
 
+from base.singleton import Singleton
 
 
 class Socket(Singleton):
@@ -12,13 +13,14 @@ class Socket(Singleton):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind((self.host, self.port))
         self.socket.listen()
-        #self.connection, self.address = self.socket.accept()
-    
+        # self.connection, self.address = self.socket.accept()
+
     def connect(self):
         return Connection(self.socket)
 
     def close(self):
         self.socket.close()
+
 
 class Connection:
     def __init__(self, socket):
