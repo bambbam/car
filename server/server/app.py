@@ -16,7 +16,6 @@ from interface.router.stream import router as stream_router
 from interface.socket.server import Socket
 
 
-
 app = FastAPI()
 
 origins = [
@@ -43,7 +42,7 @@ async def root():
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def get_favicon():
-    return FileResponse('favicon.ico')
+    return FileResponse("favicon.ico")
 
 
 # uvicorn.run()은 CTRL+C로 멈추지 않기 때문에
@@ -57,8 +56,6 @@ def signal_handler(signum, frame):
 # app이 실행되면
 @app.on_event("startup")
 async def startup_event():
-  
-
     # custom signal handler 적용
     signal.signal(signal.SIGINT, signal_handler)
 

@@ -71,6 +71,7 @@ def get_camera_stream():
             b"Content-Type: image/jpeg\r\n\r\n" + bytearray(stream_db[-1]) + b"\r\n"
         )
 
+
 @router.get("/")
 async def stream():
     return StreamingResponse(
