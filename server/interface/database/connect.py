@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker # db에 객체 사용 가능
+from sqlalchemy.orm import sessionmaker  # db에 객체 사용 가능
 import logging
 
 
@@ -18,10 +18,7 @@ class _SQLAlchemy:
         echo = kargs.setdefault("DB_ECHO", True)
 
         self._engine = create_engine(
-            database_url,
-            echo=echo,
-            pool_recycle=pool_recycle,
-            pool_pre_ping=True,
+            database_url, echo=echo, pool_recycle=pool_recycle, pool_pre_ping=True,
         )
         self._session = sessionmaker(
             autocommit=False, autoflush=False, bind=self._engine
