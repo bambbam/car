@@ -19,7 +19,7 @@ stream_db = []
 class ReceiveCapFromClient(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
-        self.socket = Socket("127.0.0.1", 9999)
+        self.socket = Socket("0.0.0.0", 9999)
         self.buffer = b""
         self.len_size = struct.calcsize("<L")
 
@@ -32,19 +32,26 @@ class ReceiveCapFromClient(threading.Thread):
                             recved = client_socket.recv(4096)
                             self.buffer += recved
 
-                        packed_jpgBin_size = self.buffer[: self.len_size]
+                        packed_bin_size = self.buffer[: self.len_size]
                         self.buffer = self.buffer[self.len_size :]
 
-                        jpgBin_size = struct.unpack("<L", packed_jpgBin_size)[0]
+                        bin_size = struct.unpack("<L", packed_bin_size)[0]
 
-                        while len(self.buffer) < jpgBin_size:
+                        while len(self.buffer) < bin_size:
                             recved = client_socket.recv(4096)
                             self.buffer += recved
 
-                        jpgBin = self.buffer[:jpgBin_size]
-                        self.buffer = self.buffer[jpgBin_size:]
+                        bin = self.buffer[:bin_size]
+                        self.buffer = self.buffer[bin_size:]
 
+                        car_idBin = bin[:32]
+                        jpgBin = bin[32:]
+
+                        car_id = car_idBin.decode()
                         jpgImg = pickle.loads(jpgBin)
+
+                        print(car_id)
+
                         cap = cv2.imdecode(jpgImg, cv2.IMREAD_UNCHANGED)
                         # b, g, r = cv2.split(cap)
                         # cap = cv2.merge([r, g, b])
